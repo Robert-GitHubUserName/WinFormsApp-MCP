@@ -1,5 +1,5 @@
 {
-  "LlmProvider": 1,
+  "LlmProvider": 0,
   "OpenAiApiKey": "api-key",
   "OpenAiModelId": "gpt-4o-mini",  
   "OpenRouterApiKey": "api-key",
