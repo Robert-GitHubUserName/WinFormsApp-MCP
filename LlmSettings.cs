@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 
 namespace WinFormsApp_MCP
@@ -24,6 +25,13 @@ namespace WinFormsApp_MCP
         public string GitLabPersonalAccessToken { get; set; } = string.Empty;
         public string GitLabApiUrl { get; set; } = "https://gitlab.com/api/v4";
 
+        /// <summary>
+        /// Indicates whether valid filesystem directories have been configured
+        /// </summary>
+        public bool HasConfiguredDirectories =>
+            FilesystemDirectories != null &&
+            FilesystemDirectories.Length > 0;
+
         private static readonly string SettingsFilePath = Path.Combine(
             AppDomain.CurrentDomain.BaseDirectory,
             "settings.json");
@@ -39,6 +47,15 @@ namespace WinFormsApp_MCP
             string? gitlabToken = Environment.GetEnvironmentVariable("GITLAB_PERSONAL_ACCESS_TOKEN");
             string? gitlabApiUrl = Environment.GetEnvironmentVariable("GITLAB_API_URL");
 
+            // Try to load directories from settings.json if it exists
+            string[] directories = TryGetDirectoriesFromSettingsFile();
+
+            // If no directories were found in settings.json, use default
+            if (directories.Length == 0)
+            {
+                directories = new string[] { "D:\\Downloads" };
+            }
+
             return new LlmSettings
             {
                 LlmProvider = Provider.OpenAI,
@@ -46,10 +63,43 @@ namespace WinFormsApp_MCP
                 OpenAiModelId = modelId,
                 OpenRouterApiKey = string.Empty,
                 OpenRouterModelId = "openai/gpt-4o-mini",
-                FilesystemDirectories = new[] { Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) },
+                FilesystemDirectories = directories,
                 GitLabPersonalAccessToken = gitlabToken ?? string.Empty,
                 GitLabApiUrl = gitlabApiUrl ?? "https://gitlab.com/api/v4"
             };
+        }
+
+        /// <summary>
+        /// Tries to extract just the filesystem directories from settings.json without
+        /// deserializing the entire settings object
+        /// </summary>
+        private static string[] TryGetDirectoriesFromSettingsFile()
+        {
+            try
+            {
+                if (!File.Exists(SettingsFilePath))
+                    return Array.Empty<string>();
+
+                string json = File.ReadAllText(SettingsFilePath);
+
+                using (JsonDocument doc = JsonDocument.Parse(json))
+                {
+                    if (doc.RootElement.TryGetProperty("FilesystemDirectories", out JsonElement directoriesElement) &&
+                        directoriesElement.ValueKind == JsonValueKind.Array)
+                    {
+                        return directoriesElement.EnumerateArray()
+                            .Select(e => e.GetString())
+                            .Where(s => !string.IsNullOrEmpty(s))
+                            .ToArray();
+                    }
+                }
+            }
+            catch
+            {
+                // Silently fail if parsing fails
+            }
+
+            return Array.Empty<string>();
         }
 
         public static LlmSettings Load()
@@ -63,6 +113,24 @@ namespace WinFormsApp_MCP
 
                 string json = File.ReadAllText(SettingsFilePath);
                 var settings = JsonSerializer.Deserialize<LlmSettings>(json);
+
+                // If settings were loaded but no directories were found, use the default
+                if (settings != null && (settings.FilesystemDirectories == null || settings.FilesystemDirectories.Length == 0))
+                {
+                    // Try to extract just the directories first
+                    string[] directories = TryGetDirectoriesFromSettingsFile();
+
+                    // If still no directories, use default
+                    if (directories.Length == 0)
+                    {
+                        settings.FilesystemDirectories = new string[] { "D:\\Downloads" };
+                    }
+                    else
+                    {
+                        settings.FilesystemDirectories = directories;
+                    }
+                }
+
                 return settings ?? CreateDefault();
             }
             catch (Exception)

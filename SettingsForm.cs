@@ -14,6 +14,7 @@ namespace WinFormsApp_MCP
     public partial class SettingsForm : Form
     {
         private static readonly HttpClient httpClient = new HttpClient();
+        private bool _initialLoad = true;
 
         // Properties to access the form's settings
         public LlmSettings.Provider Provider { get; private set; } = LlmSettings.Provider.OpenAI;
@@ -31,7 +32,10 @@ namespace WinFormsApp_MCP
 
             // Load existing settings
             var settings = LlmSettings.Load();
-            Provider = settings.LlmProvider;
+
+            // Always set OpenAI as the default provider regardless of what's in settings
+            Provider = LlmSettings.Provider.OpenAI;
+
             OpenAiApiKey = settings.OpenAiApiKey;
             OpenAiModelId = settings.OpenAiModelId;
             OpenRouterApiKey = settings.OpenRouterApiKey;
@@ -59,8 +63,8 @@ namespace WinFormsApp_MCP
             comboBoxOpenAIModel.Items.AddRange(new string[] { "gpt-4o-mini", "gpt-4o", "gpt-3.5-turbo", "gpt-3" });
             comboBoxOpenAIModel.SelectedItem = OpenAiModelId;
 
-            // Populate OpenRouter models
-            PopulateOpenRouterModels();
+            // Don't populate OpenRouter models since it's not functional
+            // PopulateOpenRouterModels();
         }
 
         private void PopulateOpenRouterModels()
@@ -123,9 +127,9 @@ namespace WinFormsApp_MCP
 
         private void SettingsForm_Load(object sender, EventArgs e)
         {
-            // Set the radio buttons based on current provider
-            radioButtonOpenAI.Checked = Provider == LlmSettings.Provider.OpenAI;
-            radioButtonOpenRouter.Checked = Provider == LlmSettings.Provider.OpenRouter;
+            // Always force OpenAI to be selected
+            radioButtonOpenAI.Checked = true;
+            radioButtonOpenRouter.Checked = false;
 
             // Set the text boxes based on current settings
             textBoxOpenAIKey.Text = OpenAiApiKey;
@@ -138,6 +142,8 @@ namespace WinFormsApp_MCP
 
             // Update enabled controls based on selection
             UpdateControlStates();
+
+            _initialLoad = false;
         }
 
         private void UpdateControlStates()
@@ -154,6 +160,16 @@ namespace WinFormsApp_MCP
 
         private void radioButtonOpenRouter_CheckedChanged(object sender, EventArgs e)
         {
+            if (radioButtonOpenRouter.Checked && !_initialLoad)
+            {
+                MessageBox.Show("OpenRouter integration is not functional yet.", "Feature Unavailable",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Switch back to OpenAI
+                radioButtonOpenAI.Checked = true;
+                radioButtonOpenRouter.Checked = false;
+            }
+
             UpdateControlStates();
         }
 
@@ -168,16 +184,8 @@ namespace WinFormsApp_MCP
                 return;
             }
 
-            if (radioButtonOpenRouter.Checked && string.IsNullOrWhiteSpace(textBoxOpenRouterKey.Text))
-            {
-                MessageBox.Show("Please enter an OpenRouter API key.", "Validation Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                textBoxOpenRouterKey.Focus();
-                return;
-            }
-
             // Save the settings
-            Provider = radioButtonOpenAI.Checked ? LlmSettings.Provider.OpenAI : LlmSettings.Provider.OpenRouter;
+            Provider = LlmSettings.Provider.OpenAI;  // Always save as OpenAI
             OpenAiApiKey = textBoxOpenAIKey.Text;
             OpenAiModelId = comboBoxOpenAIModel.SelectedItem.ToString();
             OpenRouterApiKey = textBoxOpenRouterKey.Text;
@@ -196,15 +204,14 @@ namespace WinFormsApp_MCP
                 .Where(dir => !string.IsNullOrWhiteSpace(dir))
                 .ToArray();
 
-            if (comboBoxOpenRouterModel.SelectedValue != null)
+            // If no OpenRouter model is selected, use the default
+            if (comboBoxOpenRouterModel.SelectedValue == null)
             {
-                OpenRouterModelId = comboBoxOpenRouterModel.SelectedValue.ToString();
+                OpenRouterModelId = "moonshotai/moonlight-16b-a3b-instruct:free";
             }
             else
             {
-                MessageBox.Show("Please select a model for OpenRouter.", "Validation Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                OpenRouterModelId = comboBoxOpenRouterModel.SelectedValue.ToString();
             }
 
             // Save settings to file

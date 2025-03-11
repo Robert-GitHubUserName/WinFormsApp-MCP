@@ -17,331 +17,363 @@ partial class SettingsForm
 
     private void InitializeComponent()
     {
-        groupBoxProvider = new System.Windows.Forms.GroupBox();
-        radioButtonOpenRouter = new System.Windows.Forms.RadioButton();
-        radioButtonOpenAI = new System.Windows.Forms.RadioButton();
-        groupBoxOpenAI = new System.Windows.Forms.GroupBox();
-        labelOpenAIModel = new System.Windows.Forms.Label();
-        comboBoxOpenAIModel = new System.Windows.Forms.ComboBox();
-        labelOpenAIKey = new System.Windows.Forms.Label();
-        textBoxOpenAIKey = new System.Windows.Forms.TextBox();
-        groupBoxOpenRouter = new System.Windows.Forms.GroupBox();
-        labelOpenRouterModel = new System.Windows.Forms.Label();
-        comboBoxOpenRouterModel = new System.Windows.Forms.ComboBox();
-        labelOpenRouterKey = new System.Windows.Forms.Label();
-        textBoxOpenRouterKey = new System.Windows.Forms.TextBox();
-        buttonSave = new System.Windows.Forms.Button();
-        buttonCancel = new System.Windows.Forms.Button();
-        tabControl1 = new System.Windows.Forms.TabControl();
-        tabPageLLM = new System.Windows.Forms.TabPage();
-        tabPageMCP = new System.Windows.Forms.TabPage();
-        groupBoxGitLab = new System.Windows.Forms.GroupBox();
-        textBoxGitLabApiUrl = new System.Windows.Forms.TextBox();
-        labelGitLabApiUrl = new System.Windows.Forms.Label();
-        labelGitLabToken = new System.Windows.Forms.Label();
-        textBoxGitLabToken = new System.Windows.Forms.TextBox();
-        groupBoxFilesystem = new System.Windows.Forms.GroupBox();
-        labelFilesystemDirectories = new System.Windows.Forms.Label();
-        textBoxFilesystemDirectories = new System.Windows.Forms.TextBox();
-        groupBoxProvider.SuspendLayout();
-        groupBoxOpenAI.SuspendLayout();
-        groupBoxOpenRouter.SuspendLayout();
-        tabControl1.SuspendLayout();
-        tabPageLLM.SuspendLayout();
-        tabPageMCP.SuspendLayout();
-        groupBoxGitLab.SuspendLayout();
-        groupBoxFilesystem.SuspendLayout();
-        SuspendLayout();
+        this.groupBoxProvider = new GroupBox();
+        this.radioButtonOpenRouter = new RadioButton();
+        this.radioButtonOpenAI = new RadioButton();
+        this.groupBoxOpenAI = new GroupBox();
+        this.labelOpenAIModel = new Label();
+        this.comboBoxOpenAIModel = new ComboBox();
+        this.labelOpenAIKey = new Label();
+        this.textBoxOpenAIKey = new TextBox();
+        this.groupBoxOpenRouter = new GroupBox();
+        this.labelOpenRouterModel = new Label();
+        this.comboBoxOpenRouterModel = new ComboBox();
+        this.labelOpenRouterKey = new Label();
+        this.textBoxOpenRouterKey = new TextBox();
+        this.buttonSave = new Button();
+        this.buttonCancel = new Button();
+        this.tabControl1 = new TabControl();
+        this.tabPageLLM = new TabPage();
+        this.tabPageMCP = new TabPage();
+        this.groupBoxFilesystem = new GroupBox();
+        this.textBoxFilesystemDirectories = new TextBox();
+        this.labelFilesystemDirectories = new Label();
+        this.groupBoxGitLab = new GroupBox();
+        this.textBoxGitLabApiUrl = new TextBox();
+        this.labelGitLabApiUrl = new Label();
+        this.labelGitLabToken = new Label();
+        this.textBoxGitLabToken = new TextBox();
+        this.groupBoxProvider.SuspendLayout();
+        this.groupBoxOpenAI.SuspendLayout();
+        this.groupBoxOpenRouter.SuspendLayout();
+        this.tabControl1.SuspendLayout();
+        this.tabPageLLM.SuspendLayout();
+        this.tabPageMCP.SuspendLayout();
+        this.groupBoxFilesystem.SuspendLayout();
+        this.groupBoxGitLab.SuspendLayout();
+        this.SuspendLayout();
         // 
         // groupBoxProvider
         // 
-        groupBoxProvider.Controls.Add(radioButtonOpenRouter);
-        groupBoxProvider.Controls.Add(radioButtonOpenAI);
-        groupBoxProvider.Location = new System.Drawing.Point(12, 12);
-        groupBoxProvider.Name = "groupBoxProvider";
-        groupBoxProvider.Size = new System.Drawing.Size(460, 60);
-        groupBoxProvider.TabIndex = 0;
-        groupBoxProvider.TabStop = false;
-        groupBoxProvider.Text = "LLM Provider";
+        this.groupBoxProvider.Controls.Add(this.radioButtonOpenRouter);
+        this.groupBoxProvider.Controls.Add(this.radioButtonOpenAI);
+        this.groupBoxProvider.Location = new Point(17, 20);
+        this.groupBoxProvider.Margin = new Padding(4, 5, 4, 5);
+        this.groupBoxProvider.Name = "groupBoxProvider";
+        this.groupBoxProvider.Padding = new Padding(4, 5, 4, 5);
+        this.groupBoxProvider.Size = new Size(657, 100);
+        this.groupBoxProvider.TabIndex = 0;
+        this.groupBoxProvider.TabStop = false;
+        this.groupBoxProvider.Text = "LLM Provider";
         // 
         // radioButtonOpenRouter
         // 
-        radioButtonOpenRouter.AutoSize = true;
-        radioButtonOpenRouter.Location = new System.Drawing.Point(240, 25);
-        radioButtonOpenRouter.Name = "radioButtonOpenRouter";
-        radioButtonOpenRouter.Size = new System.Drawing.Size(91, 19);
-        radioButtonOpenRouter.TabIndex = 1;
-        radioButtonOpenRouter.Text = "OpenRouter";
-        radioButtonOpenRouter.UseVisualStyleBackColor = true;
-        radioButtonOpenRouter.CheckedChanged += radioButtonOpenRouter_CheckedChanged;
+        this.radioButtonOpenRouter.AutoSize = true;
+        this.radioButtonOpenRouter.Location = new Point(343, 42);
+        this.radioButtonOpenRouter.Margin = new Padding(4, 5, 4, 5);
+        this.radioButtonOpenRouter.Name = "radioButtonOpenRouter";
+        this.radioButtonOpenRouter.Size = new Size(133, 29);
+        this.radioButtonOpenRouter.TabIndex = 1;
+        this.radioButtonOpenRouter.Text = "OpenRouter";
+        this.radioButtonOpenRouter.UseVisualStyleBackColor = true;
+        this.radioButtonOpenRouter.CheckedChanged += this.radioButtonOpenRouter_CheckedChanged;
         // 
         // radioButtonOpenAI
         // 
-        radioButtonOpenAI.AutoSize = true;
-        radioButtonOpenAI.Checked = true;
-        radioButtonOpenAI.Location = new System.Drawing.Point(20, 25);
-        radioButtonOpenAI.Name = "radioButtonOpenAI";
-        radioButtonOpenAI.Size = new System.Drawing.Size(126, 19);
-        radioButtonOpenAI.TabIndex = 0;
-        radioButtonOpenAI.TabStop = true;
-        radioButtonOpenAI.Text = "OpenAI (ChatGPT)";
-        radioButtonOpenAI.UseVisualStyleBackColor = true;
-        radioButtonOpenAI.CheckedChanged += radioButtonOpenAI_CheckedChanged;
+        this.radioButtonOpenAI.AutoSize = true;
+        this.radioButtonOpenAI.Checked = true;
+        this.radioButtonOpenAI.Location = new Point(29, 42);
+        this.radioButtonOpenAI.Margin = new Padding(4, 5, 4, 5);
+        this.radioButtonOpenAI.Name = "radioButtonOpenAI";
+        this.radioButtonOpenAI.Size = new Size(180, 29);
+        this.radioButtonOpenAI.TabIndex = 0;
+        this.radioButtonOpenAI.TabStop = true;
+        this.radioButtonOpenAI.Text = "OpenAI (ChatGPT)";
+        this.radioButtonOpenAI.UseVisualStyleBackColor = true;
+        this.radioButtonOpenAI.CheckedChanged += this.radioButtonOpenAI_CheckedChanged;
         // 
         // groupBoxOpenAI
         // 
-        groupBoxOpenAI.Controls.Add(labelOpenAIModel);
-        groupBoxOpenAI.Controls.Add(comboBoxOpenAIModel);
-        groupBoxOpenAI.Controls.Add(labelOpenAIKey);
-        groupBoxOpenAI.Controls.Add(textBoxOpenAIKey);
-        groupBoxOpenAI.Location = new System.Drawing.Point(12, 78);
-        groupBoxOpenAI.Name = "groupBoxOpenAI";
-        groupBoxOpenAI.Size = new System.Drawing.Size(460, 110);
-        groupBoxOpenAI.TabIndex = 1;
-        groupBoxOpenAI.TabStop = false;
-        groupBoxOpenAI.Text = "OpenAI Settings";
+        this.groupBoxOpenAI.Controls.Add(this.labelOpenAIModel);
+        this.groupBoxOpenAI.Controls.Add(this.comboBoxOpenAIModel);
+        this.groupBoxOpenAI.Controls.Add(this.labelOpenAIKey);
+        this.groupBoxOpenAI.Controls.Add(this.textBoxOpenAIKey);
+        this.groupBoxOpenAI.Location = new Point(17, 130);
+        this.groupBoxOpenAI.Margin = new Padding(4, 5, 4, 5);
+        this.groupBoxOpenAI.Name = "groupBoxOpenAI";
+        this.groupBoxOpenAI.Padding = new Padding(4, 5, 4, 5);
+        this.groupBoxOpenAI.Size = new Size(657, 183);
+        this.groupBoxOpenAI.TabIndex = 1;
+        this.groupBoxOpenAI.TabStop = false;
+        this.groupBoxOpenAI.Text = "OpenAI Settings";
         // 
         // labelOpenAIModel
         // 
-        labelOpenAIModel.AutoSize = true;
-        labelOpenAIModel.Location = new System.Drawing.Point(20, 70);
-        labelOpenAIModel.Name = "labelOpenAIModel";
-        labelOpenAIModel.Size = new System.Drawing.Size(44, 15);
-        labelOpenAIModel.TabIndex = 3;
-        labelOpenAIModel.Text = "Model:";
+        this.labelOpenAIModel.AutoSize = true;
+        this.labelOpenAIModel.Location = new Point(29, 117);
+        this.labelOpenAIModel.Margin = new Padding(4, 0, 4, 0);
+        this.labelOpenAIModel.Name = "labelOpenAIModel";
+        this.labelOpenAIModel.Size = new Size(67, 25);
+        this.labelOpenAIModel.TabIndex = 3;
+        this.labelOpenAIModel.Text = "Model:";
         // 
         // comboBoxOpenAIModel
         // 
-        comboBoxOpenAIModel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-        comboBoxOpenAIModel.FormattingEnabled = true;
-        comboBoxOpenAIModel.Location = new System.Drawing.Point(120, 67);
-        comboBoxOpenAIModel.Name = "comboBoxOpenAIModel";
-        comboBoxOpenAIModel.Size = new System.Drawing.Size(320, 23);
-        comboBoxOpenAIModel.TabIndex = 2;
+        this.comboBoxOpenAIModel.DropDownStyle = ComboBoxStyle.DropDownList;
+        this.comboBoxOpenAIModel.FormattingEnabled = true;
+        this.comboBoxOpenAIModel.Location = new Point(171, 112);
+        this.comboBoxOpenAIModel.Margin = new Padding(4, 5, 4, 5);
+        this.comboBoxOpenAIModel.Name = "comboBoxOpenAIModel";
+        this.comboBoxOpenAIModel.Size = new Size(455, 33);
+        this.comboBoxOpenAIModel.TabIndex = 2;
         // 
         // labelOpenAIKey
         // 
-        labelOpenAIKey.AutoSize = true;
-        labelOpenAIKey.Location = new System.Drawing.Point(20, 30);
-        labelOpenAIKey.Name = "labelOpenAIKey";
-        labelOpenAIKey.Size = new System.Drawing.Size(53, 15);
-        labelOpenAIKey.TabIndex = 1;
-        labelOpenAIKey.Text = "API Key:";
+        this.labelOpenAIKey.AutoSize = true;
+        this.labelOpenAIKey.Location = new Point(29, 50);
+        this.labelOpenAIKey.Margin = new Padding(4, 0, 4, 0);
+        this.labelOpenAIKey.Name = "labelOpenAIKey";
+        this.labelOpenAIKey.Size = new Size(76, 25);
+        this.labelOpenAIKey.TabIndex = 1;
+        this.labelOpenAIKey.Text = "API Key:";
         // 
         // textBoxOpenAIKey
         // 
-        textBoxOpenAIKey.Location = new System.Drawing.Point(120, 27);
-        textBoxOpenAIKey.Name = "textBoxOpenAIKey";
-        textBoxOpenAIKey.PasswordChar = '•';
-        textBoxOpenAIKey.Size = new System.Drawing.Size(320, 23);
-        textBoxOpenAIKey.TabIndex = 0;
+        this.textBoxOpenAIKey.Location = new Point(171, 45);
+        this.textBoxOpenAIKey.Margin = new Padding(4, 5, 4, 5);
+        this.textBoxOpenAIKey.Name = "textBoxOpenAIKey";
+        this.textBoxOpenAIKey.PasswordChar = '•';
+        this.textBoxOpenAIKey.Size = new Size(455, 31);
+        this.textBoxOpenAIKey.TabIndex = 0;
         // 
         // groupBoxOpenRouter
         // 
-        groupBoxOpenRouter.Controls.Add(labelOpenRouterModel);
-        groupBoxOpenRouter.Controls.Add(comboBoxOpenRouterModel);
-        groupBoxOpenRouter.Controls.Add(labelOpenRouterKey);
-        groupBoxOpenRouter.Controls.Add(textBoxOpenRouterKey);
-        groupBoxOpenRouter.Location = new System.Drawing.Point(12, 198);
-        groupBoxOpenRouter.Name = "groupBoxOpenRouter";
-        groupBoxOpenRouter.Size = new System.Drawing.Size(460, 110);
-        groupBoxOpenRouter.TabIndex = 2;
-        groupBoxOpenRouter.TabStop = false;
-        groupBoxOpenRouter.Text = "OpenRouter Settings";
+        this.groupBoxOpenRouter.Controls.Add(this.labelOpenRouterModel);
+        this.groupBoxOpenRouter.Controls.Add(this.comboBoxOpenRouterModel);
+        this.groupBoxOpenRouter.Controls.Add(this.labelOpenRouterKey);
+        this.groupBoxOpenRouter.Controls.Add(this.textBoxOpenRouterKey);
+        this.groupBoxOpenRouter.Location = new Point(17, 330);
+        this.groupBoxOpenRouter.Margin = new Padding(4, 5, 4, 5);
+        this.groupBoxOpenRouter.Name = "groupBoxOpenRouter";
+        this.groupBoxOpenRouter.Padding = new Padding(4, 5, 4, 5);
+        this.groupBoxOpenRouter.Size = new Size(657, 183);
+        this.groupBoxOpenRouter.TabIndex = 2;
+        this.groupBoxOpenRouter.TabStop = false;
+        this.groupBoxOpenRouter.Text = "OpenRouter Settings";
         // 
         // labelOpenRouterModel
         // 
-        labelOpenRouterModel.AutoSize = true;
-        labelOpenRouterModel.Location = new System.Drawing.Point(20, 70);
-        labelOpenRouterModel.Name = "labelOpenRouterModel";
-        labelOpenRouterModel.Size = new System.Drawing.Size(44, 15);
-        labelOpenRouterModel.TabIndex = 3;
-        labelOpenRouterModel.Text = "Model:";
+        this.labelOpenRouterModel.AutoSize = true;
+        this.labelOpenRouterModel.Location = new Point(29, 117);
+        this.labelOpenRouterModel.Margin = new Padding(4, 0, 4, 0);
+        this.labelOpenRouterModel.Name = "labelOpenRouterModel";
+        this.labelOpenRouterModel.Size = new Size(67, 25);
+        this.labelOpenRouterModel.TabIndex = 3;
+        this.labelOpenRouterModel.Text = "Model:";
         // 
         // comboBoxOpenRouterModel
         // 
-        comboBoxOpenRouterModel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-        comboBoxOpenRouterModel.FormattingEnabled = true;
-        comboBoxOpenRouterModel.Location = new System.Drawing.Point(120, 67);
-        comboBoxOpenRouterModel.Name = "comboBoxOpenRouterModel";
-        comboBoxOpenRouterModel.Size = new System.Drawing.Size(320, 23);
-        comboBoxOpenRouterModel.TabIndex = 2;
+        this.comboBoxOpenRouterModel.DropDownStyle = ComboBoxStyle.DropDownList;
+        this.comboBoxOpenRouterModel.FormattingEnabled = true;
+        this.comboBoxOpenRouterModel.Location = new Point(171, 112);
+        this.comboBoxOpenRouterModel.Margin = new Padding(4, 5, 4, 5);
+        this.comboBoxOpenRouterModel.Name = "comboBoxOpenRouterModel";
+        this.comboBoxOpenRouterModel.Size = new Size(455, 33);
+        this.comboBoxOpenRouterModel.TabIndex = 2;
         // 
         // labelOpenRouterKey
         // 
-        labelOpenRouterKey.AutoSize = true;
-        labelOpenRouterKey.Location = new System.Drawing.Point(20, 30);
-        labelOpenRouterKey.Name = "labelOpenRouterKey";
-        labelOpenRouterKey.Size = new System.Drawing.Size(53, 15);
-        labelOpenRouterKey.TabIndex = 1;
-        labelOpenRouterKey.Text = "API Key:";
+        this.labelOpenRouterKey.AutoSize = true;
+        this.labelOpenRouterKey.Location = new Point(29, 50);
+        this.labelOpenRouterKey.Margin = new Padding(4, 0, 4, 0);
+        this.labelOpenRouterKey.Name = "labelOpenRouterKey";
+        this.labelOpenRouterKey.Size = new Size(76, 25);
+        this.labelOpenRouterKey.TabIndex = 1;
+        this.labelOpenRouterKey.Text = "API Key:";
         // 
         // textBoxOpenRouterKey
         // 
-        textBoxOpenRouterKey.Location = new System.Drawing.Point(120, 27);
-        textBoxOpenRouterKey.Name = "textBoxOpenRouterKey";
-        textBoxOpenRouterKey.PasswordChar = '•';
-        textBoxOpenRouterKey.Size = new System.Drawing.Size(320, 23);
-        textBoxOpenRouterKey.TabIndex = 0;
+        this.textBoxOpenRouterKey.Location = new Point(171, 45);
+        this.textBoxOpenRouterKey.Margin = new Padding(4, 5, 4, 5);
+        this.textBoxOpenRouterKey.Name = "textBoxOpenRouterKey";
+        this.textBoxOpenRouterKey.PasswordChar = '•';
+        this.textBoxOpenRouterKey.Size = new Size(455, 31);
+        this.textBoxOpenRouterKey.TabIndex = 0;
         // 
         // buttonSave
         // 
-        buttonSave.Location = new System.Drawing.Point(291, 318);
-        buttonSave.Name = "buttonSave";
-        buttonSave.Size = new System.Drawing.Size(87, 30);
-        buttonSave.TabIndex = 3;
-        buttonSave.Text = "Save";
-        buttonSave.UseVisualStyleBackColor = true;
-        buttonSave.Click += buttonSave_Click;
+        this.buttonSave.Location = new Point(718, 663);
+        this.buttonSave.Margin = new Padding(4, 5, 4, 5);
+        this.buttonSave.Name = "buttonSave";
+        this.buttonSave.Size = new Size(124, 43);
+        this.buttonSave.TabIndex = 3;
+        this.buttonSave.Text = "Save";
+        this.buttonSave.UseVisualStyleBackColor = true;
+        this.buttonSave.Click += this.buttonSave_Click;
         // 
         // buttonCancel
         // 
-        buttonCancel.Location = new System.Drawing.Point(384, 318);
-        buttonCancel.Name = "buttonCancel";
-        buttonCancel.Size = new System.Drawing.Size(87, 30);
-        buttonCancel.TabIndex = 4;
-        buttonCancel.Text = "Cancel";
-        buttonCancel.UseVisualStyleBackColor = true;
-        buttonCancel.Click += buttonCancel_Click;
+        this.buttonCancel.Location = new Point(571, 663);
+        this.buttonCancel.Margin = new Padding(4, 5, 4, 5);
+        this.buttonCancel.Name = "buttonCancel";
+        this.buttonCancel.Size = new Size(124, 43);
+        this.buttonCancel.TabIndex = 4;
+        this.buttonCancel.Text = "Cancel";
+        this.buttonCancel.UseVisualStyleBackColor = true;
+        this.buttonCancel.Click += this.buttonCancel_Click;
         // 
         // tabControl1
         // 
-        tabControl1.Controls.Add(tabPageLLM);
-        tabControl1.Controls.Add(tabPageMCP);
-        tabControl1.Location = new System.Drawing.Point(12, 12);
-        tabControl1.Name = "tabControl1";
-        tabControl1.SelectedIndex = 0;
-        tabControl1.Size = new System.Drawing.Size(580, 380);
-        tabControl1.TabIndex = 5;
+        this.tabControl1.Controls.Add(this.tabPageLLM);
+        this.tabControl1.Controls.Add(this.tabPageMCP);
+        this.tabControl1.Location = new Point(17, 20);
+        this.tabControl1.Margin = new Padding(4, 5, 4, 5);
+        this.tabControl1.Name = "tabControl1";
+        this.tabControl1.SelectedIndex = 0;
+        this.tabControl1.Size = new Size(829, 633);
+        this.tabControl1.TabIndex = 5;
         // 
         // tabPageLLM
         // 
-        tabPageLLM.Controls.Add(groupBoxProvider);
-        tabPageLLM.Controls.Add(groupBoxOpenAI);
-        tabPageLLM.Controls.Add(groupBoxOpenRouter);
-        tabPageLLM.Location = new System.Drawing.Point(4, 24);
-        tabPageLLM.Name = "tabPageLLM";
-        tabPageLLM.Padding = new System.Windows.Forms.Padding(3);
-        tabPageLLM.Size = new System.Drawing.Size(572, 352);
-        tabPageLLM.TabIndex = 0;
-        tabPageLLM.Text = "LLM Settings";
-        tabPageLLM.UseVisualStyleBackColor = true;
+        this.tabPageLLM.Controls.Add(this.groupBoxProvider);
+        this.tabPageLLM.Controls.Add(this.groupBoxOpenAI);
+        this.tabPageLLM.Controls.Add(this.groupBoxOpenRouter);
+        this.tabPageLLM.Location = new Point(4, 34);
+        this.tabPageLLM.Margin = new Padding(4, 5, 4, 5);
+        this.tabPageLLM.Name = "tabPageLLM";
+        this.tabPageLLM.Padding = new Padding(4, 5, 4, 5);
+        this.tabPageLLM.Size = new Size(821, 595);
+        this.tabPageLLM.TabIndex = 0;
+        this.tabPageLLM.Text = "LLM Settings";
+        this.tabPageLLM.UseVisualStyleBackColor = true;
         // 
         // tabPageMCP
         // 
-        tabPageMCP.Controls.Add(groupBoxFilesystem);
-        tabPageMCP.Controls.Add(groupBoxGitLab);
-        tabPageMCP.Location = new System.Drawing.Point(4, 24);
-        tabPageMCP.Name = "tabPageMCP";
-        tabPageMCP.Padding = new System.Windows.Forms.Padding(3);
-        tabPageMCP.Size = new System.Drawing.Size(572, 352);
-        tabPageMCP.TabIndex = 1;
-        tabPageMCP.Text = "MCP Settings";
-        tabPageMCP.UseVisualStyleBackColor = true;
-        // 
-        // groupBoxGitLab
-        // 
-        groupBoxGitLab.Controls.Add(textBoxGitLabApiUrl);
-        groupBoxGitLab.Controls.Add(labelGitLabApiUrl);
-        groupBoxGitLab.Controls.Add(labelGitLabToken);
-        groupBoxGitLab.Controls.Add(textBoxGitLabToken);
-        groupBoxGitLab.Location = new System.Drawing.Point(6, 6);
-        groupBoxGitLab.Name = "groupBoxGitLab";
-        groupBoxGitLab.Size = new System.Drawing.Size(560, 100);
-        groupBoxGitLab.TabIndex = 3;
-        groupBoxGitLab.TabStop = false;
-        groupBoxGitLab.Text = "GitLab Settings";
-        // 
-        // textBoxGitLabApiUrl
-        // 
-        textBoxGitLabApiUrl.Location = new System.Drawing.Point(120, 60);
-        textBoxGitLabApiUrl.Name = "textBoxGitLabApiUrl";
-        textBoxGitLabApiUrl.Size = new System.Drawing.Size(434, 23);
-        textBoxGitLabApiUrl.TabIndex = 3;
-        // 
-        // labelGitLabApiUrl
-        // 
-        labelGitLabApiUrl.AutoSize = true;
-        labelGitLabApiUrl.Location = new System.Drawing.Point(16, 63);
-        labelGitLabApiUrl.Name = "labelGitLabApiUrl";
-        labelGitLabApiUrl.Size = new System.Drawing.Size(54, 15);
-        labelGitLabApiUrl.TabIndex = 2;
-        labelGitLabApiUrl.Text = "API URL:";
-        // 
-        // labelGitLabToken
-        // 
-        labelGitLabToken.AutoSize = true;
-        labelGitLabToken.Location = new System.Drawing.Point(16, 30);
-        labelGitLabToken.Name = "labelGitLabToken";
-        labelGitLabToken.Size = new System.Drawing.Size(93, 15);
-        labelGitLabToken.TabIndex = 1;
-        labelGitLabToken.Text = "Personal Token:";
-        // 
-        // textBoxGitLabToken
-        // 
-        textBoxGitLabToken.Location = new System.Drawing.Point(120, 27);
-        textBoxGitLabToken.Name = "textBoxGitLabToken";
-        textBoxGitLabToken.PasswordChar = '•';
-        textBoxGitLabToken.Size = new System.Drawing.Size(434, 23);
-        textBoxGitLabToken.TabIndex = 0;
+        this.tabPageMCP.Controls.Add(this.groupBoxFilesystem);
+        this.tabPageMCP.Controls.Add(this.groupBoxGitLab);
+        this.tabPageMCP.Location = new Point(4, 34);
+        this.tabPageMCP.Margin = new Padding(4, 5, 4, 5);
+        this.tabPageMCP.Name = "tabPageMCP";
+        this.tabPageMCP.Padding = new Padding(4, 5, 4, 5);
+        this.tabPageMCP.Size = new Size(821, 595);
+        this.tabPageMCP.TabIndex = 1;
+        this.tabPageMCP.Text = "MCP Settings";
+        this.tabPageMCP.UseVisualStyleBackColor = true;
         // 
         // groupBoxFilesystem
         // 
-        groupBoxFilesystem.Controls.Add(textBoxFilesystemDirectories);
-        groupBoxFilesystem.Controls.Add(labelFilesystemDirectories);
-        groupBoxFilesystem.Location = new System.Drawing.Point(6, 112);
-        groupBoxFilesystem.Name = "groupBoxFilesystem";
-        groupBoxFilesystem.Size = new System.Drawing.Size(560, 234);
-        groupBoxFilesystem.TabIndex = 4;
-        groupBoxFilesystem.TabStop = false;
-        groupBoxFilesystem.Text = "Filesystem Settings";
-        // 
-        // labelFilesystemDirectories
-        // 
-        labelFilesystemDirectories.AutoSize = true;
-        labelFilesystemDirectories.Location = new System.Drawing.Point(16, 29);
-        labelFilesystemDirectories.Name = "labelFilesystemDirectories";
-        labelFilesystemDirectories.Size = new System.Drawing.Size(153, 15);
-        labelFilesystemDirectories.TabIndex = 0;
-        labelFilesystemDirectories.Text = "Accessible Directories (one per line):";
+        this.groupBoxFilesystem.Controls.Add(this.textBoxFilesystemDirectories);
+        this.groupBoxFilesystem.Controls.Add(this.labelFilesystemDirectories);
+        this.groupBoxFilesystem.Location = new Point(9, 187);
+        this.groupBoxFilesystem.Margin = new Padding(4, 5, 4, 5);
+        this.groupBoxFilesystem.Name = "groupBoxFilesystem";
+        this.groupBoxFilesystem.Padding = new Padding(4, 5, 4, 5);
+        this.groupBoxFilesystem.Size = new Size(800, 390);
+        this.groupBoxFilesystem.TabIndex = 4;
+        this.groupBoxFilesystem.TabStop = false;
+        this.groupBoxFilesystem.Text = "Filesystem Settings";
         // 
         // textBoxFilesystemDirectories
         // 
-        textBoxFilesystemDirectories.Location = new System.Drawing.Point(16, 47);
-        textBoxFilesystemDirectories.Multiline = true;
-        textBoxFilesystemDirectories.Name = "textBoxFilesystemDirectories";
-        textBoxFilesystemDirectories.Size = new System.Drawing.Size(538, 181);
-        textBoxFilesystemDirectories.TabIndex = 1;
+        this.textBoxFilesystemDirectories.Location = new Point(23, 78);
+        this.textBoxFilesystemDirectories.Margin = new Padding(4, 5, 4, 5);
+        this.textBoxFilesystemDirectories.Multiline = true;
+        this.textBoxFilesystemDirectories.Name = "textBoxFilesystemDirectories";
+        this.textBoxFilesystemDirectories.Size = new Size(767, 299);
+        this.textBoxFilesystemDirectories.TabIndex = 1;
+        // 
+        // labelFilesystemDirectories
+        // 
+        this.labelFilesystemDirectories.AutoSize = true;
+        this.labelFilesystemDirectories.Location = new Point(23, 48);
+        this.labelFilesystemDirectories.Margin = new Padding(4, 0, 4, 0);
+        this.labelFilesystemDirectories.Name = "labelFilesystemDirectories";
+        this.labelFilesystemDirectories.Size = new Size(294, 25);
+        this.labelFilesystemDirectories.TabIndex = 0;
+        this.labelFilesystemDirectories.Text = "Accessible Directories (one per line):";
+        // 
+        // groupBoxGitLab
+        // 
+        this.groupBoxGitLab.Controls.Add(this.textBoxGitLabApiUrl);
+        this.groupBoxGitLab.Controls.Add(this.labelGitLabApiUrl);
+        this.groupBoxGitLab.Controls.Add(this.labelGitLabToken);
+        this.groupBoxGitLab.Controls.Add(this.textBoxGitLabToken);
+        this.groupBoxGitLab.Location = new Point(9, 10);
+        this.groupBoxGitLab.Margin = new Padding(4, 5, 4, 5);
+        this.groupBoxGitLab.Name = "groupBoxGitLab";
+        this.groupBoxGitLab.Padding = new Padding(4, 5, 4, 5);
+        this.groupBoxGitLab.Size = new Size(800, 167);
+        this.groupBoxGitLab.TabIndex = 3;
+        this.groupBoxGitLab.TabStop = false;
+        this.groupBoxGitLab.Text = "GitLab Settings";
+        // 
+        // textBoxGitLabApiUrl
+        // 
+        this.textBoxGitLabApiUrl.Location = new Point(171, 100);
+        this.textBoxGitLabApiUrl.Margin = new Padding(4, 5, 4, 5);
+        this.textBoxGitLabApiUrl.Name = "textBoxGitLabApiUrl";
+        this.textBoxGitLabApiUrl.Size = new Size(618, 31);
+        this.textBoxGitLabApiUrl.TabIndex = 3;
+        // 
+        // labelGitLabApiUrl
+        // 
+        this.labelGitLabApiUrl.AutoSize = true;
+        this.labelGitLabApiUrl.Location = new Point(23, 105);
+        this.labelGitLabApiUrl.Margin = new Padding(4, 0, 4, 0);
+        this.labelGitLabApiUrl.Name = "labelGitLabApiUrl";
+        this.labelGitLabApiUrl.Size = new Size(79, 25);
+        this.labelGitLabApiUrl.TabIndex = 2;
+        this.labelGitLabApiUrl.Text = "API URL:";
+        // 
+        // labelGitLabToken
+        // 
+        this.labelGitLabToken.AutoSize = true;
+        this.labelGitLabToken.Location = new Point(23, 50);
+        this.labelGitLabToken.Margin = new Padding(4, 0, 4, 0);
+        this.labelGitLabToken.Name = "labelGitLabToken";
+        this.labelGitLabToken.Size = new Size(133, 25);
+        this.labelGitLabToken.TabIndex = 1;
+        this.labelGitLabToken.Text = "Personal Token:";
+        // 
+        // textBoxGitLabToken
+        // 
+        this.textBoxGitLabToken.Location = new Point(171, 45);
+        this.textBoxGitLabToken.Margin = new Padding(4, 5, 4, 5);
+        this.textBoxGitLabToken.Name = "textBoxGitLabToken";
+        this.textBoxGitLabToken.PasswordChar = '•';
+        this.textBoxGitLabToken.Size = new Size(618, 31);
+        this.textBoxGitLabToken.TabIndex = 0;
         // 
         // SettingsForm
         // 
-        AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-        AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-        ClientSize = new System.Drawing.Size(604, 441);
-        Controls.Add(tabControl1);
-        Controls.Add(buttonCancel);
-        Controls.Add(buttonSave);
-        FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-        MaximizeBox = false;
-        MinimizeBox = false;
-        Name = "SettingsForm";
-        StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-        Text = "LLM Settings";
-        Load += SettingsForm_Load;
-        groupBoxProvider.ResumeLayout(false);
-        groupBoxProvider.PerformLayout();
-        groupBoxOpenAI.ResumeLayout(false);
-        groupBoxOpenAI.PerformLayout();
-        groupBoxOpenRouter.ResumeLayout(false);
-        groupBoxOpenRouter.PerformLayout();
-        tabControl1.ResumeLayout(false);
-        tabPageLLM.ResumeLayout(false);
-        tabPageMCP.ResumeLayout(false);
-        groupBoxGitLab.ResumeLayout(false);
-        groupBoxGitLab.PerformLayout();
-        groupBoxFilesystem.ResumeLayout(false);
-        groupBoxFilesystem.PerformLayout();
-        ResumeLayout(false);
+        this.AutoScaleDimensions = new SizeF(10F, 25F);
+        this.AutoScaleMode = AutoScaleMode.Font;
+        this.ClientSize = new Size(863, 735);
+        this.Controls.Add(this.buttonSave);
+        this.Controls.Add(this.buttonCancel);
+        this.Controls.Add(this.tabControl1);
+        this.FormBorderStyle = FormBorderStyle.FixedDialog;
+        this.Margin = new Padding(4, 5, 4, 5);
+        this.MaximizeBox = false;
+        this.MinimizeBox = false;
+        this.Name = "SettingsForm";
+        this.StartPosition = FormStartPosition.CenterParent;
+        this.Text = "LLM Settings";
+        this.Load += this.SettingsForm_Load;
+        this.groupBoxProvider.ResumeLayout(false);
+        this.groupBoxProvider.PerformLayout();
+        this.groupBoxOpenAI.ResumeLayout(false);
+        this.groupBoxOpenAI.PerformLayout();
+        this.groupBoxOpenRouter.ResumeLayout(false);
+        this.groupBoxOpenRouter.PerformLayout();
+        this.tabControl1.ResumeLayout(false);
+        this.tabPageLLM.ResumeLayout(false);
+        this.tabPageMCP.ResumeLayout(false);
+        this.groupBoxFilesystem.ResumeLayout(false);
+        this.groupBoxFilesystem.PerformLayout();
+        this.groupBoxGitLab.ResumeLayout(false);
+        this.groupBoxGitLab.PerformLayout();
+        this.ResumeLayout(false);
     }
 
     #endregion

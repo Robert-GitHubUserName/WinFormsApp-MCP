@@ -1,0 +1,14 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/WinFormsApp-MCP/copilot-chat/253cd207/sessions
+/.vs/WinFormsApp-MCP/CopilotIndices/17.13.433.20974
+/.vs/WinFormsApp-MCP/FileContentIndex
+/.vs/WinFormsApp-MCP/v17/DocumentLayout.json
+/.vs/WinFormsApp-MCP/v17/.suo
+/obj
+/bin/Debug/net8.0-windows
+/.vs/CopilotSnapshots/6C88B830B2C2B54399B3CD45A174963F
+/.vs/WinFormsApp-MCP/v17
+/.vs/WinFormsApp-MCP/DesignTimeBuild
