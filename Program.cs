@@ -1,5 +1,3 @@
-// Copyright (c) Microsoft. All rights reserved.
-
 namespace WinFormsApp_MCP;
 
 internal static class Program

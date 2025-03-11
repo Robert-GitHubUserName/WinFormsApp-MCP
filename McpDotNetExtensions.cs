@@ -1,6 +1,4 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
-
-using McpDotNet.Client;
+﻿using McpDotNet.Client;
 using McpDotNet.Configuration;
 using McpDotNet.Protocol.Types;
 using Microsoft.Extensions.Logging.Abstractions;

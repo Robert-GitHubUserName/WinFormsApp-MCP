@@ -1,6 +1,4 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
@@ -118,7 +116,6 @@ public class KernelService
     /// <summary>
     /// Configure OpenRouter as the LLM provider
     /// </summary>
-    // Configure OpenRouter as the LLM provider
     private void ConfigureOpenRouter(IKernelBuilder builder, LlmSettings settings)
     {
         if (string.IsNullOrEmpty(settings.OpenRouterApiKey))
