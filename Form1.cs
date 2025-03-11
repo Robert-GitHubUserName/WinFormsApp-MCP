@@ -337,8 +337,7 @@ namespace WinFormsApp_MCP
             MessageBox.Show(
                 "Model Context Protocol Chat\n\n" +
                 "This application demonstrates the use of the Model Context Protocol (MCP) " +
-                "with Semantic Kernel to provide AI chat capabilities enhanced with tool calling.\n\n" +
-                "© 2025 Your Organization",
+                "with Semantic Kernel to provide AI chat capabilities enhanced with tool calling.\n\n",
                 "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }

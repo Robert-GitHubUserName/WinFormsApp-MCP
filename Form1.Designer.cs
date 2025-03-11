@@ -60,14 +60,17 @@ namespace WinFormsApp_MCP
             splitContainer.Location = new Point(0, 24);
             splitContainer.Name = "splitContainer";
             splitContainer.Orientation = Orientation.Horizontal;
+            splitContainer.Padding = new Padding(10);
             // 
             // splitContainer.Panel1
             // 
             splitContainer.Panel1.Controls.Add(chatHistoryRichTextBox);
+            splitContainer.Panel1.Padding = new Padding(15);
             // 
             // splitContainer.Panel2
             // 
             splitContainer.Panel2.Controls.Add(panel1);
+            splitContainer.Panel2.Padding = new Padding(10);
             splitContainer.Panel2MinSize = 50;
             splitContainer.Size = new Size(784, 515);
             splitContainer.SplitterDistance = 415;
@@ -78,10 +81,11 @@ namespace WinFormsApp_MCP
             chatHistoryRichTextBox.BackColor = SystemColors.Window;
             chatHistoryRichTextBox.Dock = DockStyle.Fill;
             chatHistoryRichTextBox.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            chatHistoryRichTextBox.Location = new Point(0, 0);
+            chatHistoryRichTextBox.Location = new Point(15, 15);
+            chatHistoryRichTextBox.Margin = new Padding(10);
             chatHistoryRichTextBox.Name = "chatHistoryRichTextBox";
             chatHistoryRichTextBox.ReadOnly = true;
-            chatHistoryRichTextBox.Size = new Size(784, 415);
+            chatHistoryRichTextBox.Size = new Size(754, 385);
             chatHistoryRichTextBox.TabIndex = 0;
             chatHistoryRichTextBox.Text = "";
             // 
@@ -90,18 +94,18 @@ namespace WinFormsApp_MCP
             panel1.Controls.Add(sendButton);
             panel1.Controls.Add(userInputTextBox);
             panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(0, 0);
+            panel1.Location = new Point(10, 10);
             panel1.Name = "panel1";
             panel1.Padding = new Padding(10);
-            panel1.Size = new Size(784, 96);
+            panel1.Size = new Size(764, 76);
             panel1.TabIndex = 0;
             // 
             // sendButton
             // 
             sendButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            sendButton.Location = new Point(694, 10);
+            sendButton.Location = new Point(674, 10);
             sendButton.Name = "sendButton";
-            sendButton.Size = new Size(80, 76);
+            sendButton.Size = new Size(80, 56);
             sendButton.TabIndex = 1;
             sendButton.Text = "Send";
             sendButton.UseVisualStyleBackColor = true;
@@ -114,7 +118,7 @@ namespace WinFormsApp_MCP
             userInputTextBox.Location = new Point(10, 10);
             userInputTextBox.Multiline = true;
             userInputTextBox.Name = "userInputTextBox";
-            userInputTextBox.Size = new Size(678, 76);
+            userInputTextBox.Size = new Size(658, 56);
             userInputTextBox.TabIndex = 0;
             userInputTextBox.KeyDown += UserInputTextBox_KeyDown;
             // 
@@ -195,6 +199,7 @@ namespace WinFormsApp_MCP
             MainMenuStrip = menuStrip;
             MinimumSize = new Size(400, 300);
             Name = "Form1";
+            Padding = new Padding(5);
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Model Context Protocol Chat";
             FormClosing += Form1_FormClosing;
@@ -231,3 +236,4 @@ namespace WinFormsApp_MCP
         private ToolStripMenuItem aboutToolStripMenuItem;
     }
 }
+
