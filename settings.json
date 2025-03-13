@@ -4,6 +4,8 @@
   "OpenAiModelId": "gpt-4o-mini",  
   "OpenRouterApiKey": "api-key",
   "OpenRouterModelId": "moonshotai/moonlight-16b-a3b-instruct:free",
+  "OllamaEndpoint": "http://localhost:11434",
+  "OllamaModelId": "llama3.2:3b",
   "FilesystemDirectories": [
     "D:\\WorkFolderExample01",
     "D:\\Downloads"

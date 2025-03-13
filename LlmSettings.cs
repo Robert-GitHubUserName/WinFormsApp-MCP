@@ -59,9 +59,9 @@ namespace WinFormsApp_MCP
                 OpenAiModelId = modelId,
                 OpenRouterApiKey = string.Empty,
                 OpenRouterModelId = "openai/gpt-4o-mini",
-                OllamaEndpoint = ollamaEndpoint ?? "http://localhost:11434", // "http://localhost:11434"
+                OllamaEndpoint = ollamaEndpoint ?? "http://localhost:11434",
                 OllamaModelId = ollamaModelId ?? "llama3.2:3b",
-                FilesystemDirectories = new[] { Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) },
+                FilesystemDirectories = new[] { "D:\\Downloads" },
                 GitLabPersonalAccessToken = gitlabToken ?? string.Empty,
                 GitLabApiUrl = gitlabApiUrl ?? "https://gitlab.com/api/v4"
             };
@@ -123,6 +123,12 @@ namespace WinFormsApp_MCP
             if (!string.IsNullOrEmpty(ollamaModelId))
             {
                 settings.OllamaModelId = ollamaModelId;
+            }
+
+            // Pull FilesystemDirectories from settings.json if FilesystemDirectories is empty
+            if (settings.FilesystemDirectories == null || settings.FilesystemDirectories.Length == 0)
+            {
+                settings.FilesystemDirectories = new[] { Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) };
             }
 
             return settings;
