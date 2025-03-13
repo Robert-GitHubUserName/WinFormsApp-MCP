@@ -51,10 +51,11 @@ public class KernelService
     /// <summary>
     /// Reconfigures the kernel with new LLM settings
     /// </summary>
-    public void UpdateSettings(LlmSettings newSettings)
+    /// <returns>True if settings were saved successfully, false otherwise</returns>
+    public bool UpdateSettings(LlmSettings newSettings)
     {
         _settings = newSettings;
-        _settings.Save();
+        bool saveSuccessful = _settings.Save();
 
         // Create a new builder with the updated settings
         var builder = Kernel.CreateBuilder();
@@ -65,6 +66,8 @@ public class KernelService
 
         // Build the new kernel and update the reference
         _kernel = builder.Build();
+        
+        return saveSuccessful;
     }
 
     /// <summary>
@@ -87,6 +90,10 @@ public class KernelService
         else if (settings.LlmProvider == LlmSettings.Provider.OpenRouter)
         {
             ConfigureOpenRouter(builder, settings);
+        }
+        else if (settings.LlmProvider == LlmSettings.Provider.Ollama)
+        {
+            ConfigureOllama(builder, settings);
         }
         else
         {
@@ -132,6 +139,34 @@ public class KernelService
             modelId: settings.OpenRouterModelId,
             apiKey: settings.OpenRouterApiKey,
             endpoint: new Uri("https://openrouter.ai/api/v1/chat/completions"));
+#pragma warning restore SKEXP0010
+    }
+
+    /// <summary>
+    /// Configure Ollama as the LLM provider
+    /// </summary>
+    private void ConfigureOllama(IKernelBuilder builder, LlmSettings settings)
+    {
+        if (string.IsNullOrEmpty(settings.OllamaEndpoint))
+        {
+            throw new InvalidOperationException("Please provide a valid Ollama endpoint in settings.");
+        }
+
+        // Ensure we're using the exact model ID from settings
+        string modelId = settings.OllamaModelId;
+        string endpoint = settings.OllamaEndpoint.TrimEnd('/');
+
+        // Store configuration values
+        _config["Ollama:Endpoint"] = endpoint;
+        _config["Ollama:ModelId"] = modelId;
+
+        Console.WriteLine($"Configuring Ollama with model: {modelId} at endpoint: {endpoint}/v1");
+
+#pragma warning disable SKEXP0010
+        builder.AddOpenAIChatCompletion(
+            modelId: modelId,
+            apiKey: "ollama", // Ollama doesn't require an API key, but we need to provide something
+            endpoint: new Uri($"{endpoint}/v1"));
 #pragma warning restore SKEXP0010
     }
 }

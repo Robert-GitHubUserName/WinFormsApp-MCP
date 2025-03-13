@@ -22,6 +22,8 @@ namespace WinFormsApp_MCP
         public string OpenAiModelId { get; private set; } = "gpt-4o-mini";
         public string OpenRouterApiKey { get; private set; } = string.Empty;
         public string OpenRouterModelId { get; private set; } = "moonshotai/moonlight-16b-a3b-instruct:free";
+        public string OllamaEndpoint { get; private set; } = "http://localhost:11434";
+        public string OllamaModelId { get; private set; } = "llama3.2:3b";
         public string GitLabPersonalAccessToken { get; private set; } = string.Empty;
         public string GitLabApiUrl { get; private set; } = "https://gitlab.com/api/v4";
         public string[] FilesystemDirectories { get; private set; } = Array.Empty<string>();
@@ -33,13 +35,13 @@ namespace WinFormsApp_MCP
             // Load existing settings
             var settings = LlmSettings.Load();
 
-            // Always set OpenAI as the default provider regardless of what's in settings
-            Provider = LlmSettings.Provider.OpenAI;
-
+            Provider = settings.LlmProvider;
             OpenAiApiKey = settings.OpenAiApiKey;
             OpenAiModelId = settings.OpenAiModelId;
             OpenRouterApiKey = settings.OpenRouterApiKey;
             OpenRouterModelId = settings.OpenRouterModelId;
+            OllamaEndpoint = settings.OllamaEndpoint;
+            OllamaModelId = settings.OllamaModelId;
             GitLabPersonalAccessToken = settings.GitLabPersonalAccessToken;
             GitLabApiUrl = settings.GitLabApiUrl;
             FilesystemDirectories = settings.FilesystemDirectories;
@@ -52,9 +54,16 @@ namespace WinFormsApp_MCP
             comboBoxOpenAIModel.SelectedItem = OpenAiModelId;
             textBoxOpenRouterKey.Text = OpenRouterApiKey;
             comboBoxOpenRouterModel.SelectedValue = OpenRouterModelId;
+            textBoxOllamaEndpoint.Text = OllamaEndpoint;
+            comboBoxOllamaModel.Text = OllamaModelId;
             textBoxGitLabToken.Text = GitLabPersonalAccessToken;
             textBoxGitLabApiUrl.Text = GitLabApiUrl;
             textBoxFilesystemDirectories.Text = string.Join(Environment.NewLine, FilesystemDirectories);
+
+            // Set the selected provider
+            radioButtonOpenAI.Checked = Provider == LlmSettings.Provider.OpenAI;
+            radioButtonOpenRouter.Checked = Provider == LlmSettings.Provider.OpenRouter;
+            radioButtonOllama.Checked = Provider == LlmSettings.Provider.Ollama;
         }
 
         private void PopulateModelDropdowns()
@@ -62,6 +71,25 @@ namespace WinFormsApp_MCP
             // Populate OpenAI models
             comboBoxOpenAIModel.Items.AddRange(new string[] { "gpt-4o-mini", "gpt-4o", "gpt-3.5-turbo", "gpt-3" });
             comboBoxOpenAIModel.SelectedItem = OpenAiModelId;
+
+            // Populate Ollama models with some common options
+            comboBoxOllamaModel.Items.AddRange(new string[] { "llama3.2:3b", "llama3:8b", "llama3:70b", "mistral", "codellama", "phi3", "phi3:14b" });
+            
+            if (!string.IsNullOrEmpty(OllamaModelId))
+            {
+                if (comboBoxOllamaModel.Items.Contains(OllamaModelId))
+                {
+                    comboBoxOllamaModel.SelectedItem = OllamaModelId;
+                }
+                else
+                {
+                    comboBoxOllamaModel.Text = OllamaModelId;
+                }
+            }
+            else
+            {
+                comboBoxOllamaModel.SelectedIndex = 0;
+            }
 
             // Don't populate OpenRouter models since it's not functional
             // PopulateOpenRouterModels();
@@ -125,23 +153,97 @@ namespace WinFormsApp_MCP
             }
         }
 
+        private async void FetchOllamaModels()
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(textBoxOllamaEndpoint.Text))
+                {
+                    return;
+                }
+
+                string apiUrl = $"{textBoxOllamaEndpoint.Text.TrimEnd('/')}/api/tags";
+                var response = await httpClient.GetAsync(apiUrl);
+                response.EnsureSuccessStatusCode();
+
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                
+                using (JsonDocument doc = JsonDocument.Parse(jsonResponse))
+                {
+                    // Check if the "models" property exists
+                    if (doc.RootElement.TryGetProperty("models", out var modelsElement))
+                    {
+                        var currentSelection = comboBoxOllamaModel.Text;
+                        comboBoxOllamaModel.Items.Clear();
+                        
+                        var models = modelsElement.EnumerateArray()
+                            .Select(model => model.GetProperty("name").GetString())
+                            .Where(name => !string.IsNullOrEmpty(name))
+                            .ToList();
+
+                        comboBoxOllamaModel.Items.AddRange(models.ToArray());
+                        
+                        // Restore selection if possible
+                        if (!string.IsNullOrEmpty(currentSelection))
+                        {
+                            if (comboBoxOllamaModel.Items.Contains(currentSelection))
+                            {
+                                comboBoxOllamaModel.SelectedItem = currentSelection;
+                            }
+                            else
+                            {
+                                comboBoxOllamaModel.Text = currentSelection;
+                            }
+                        }
+                        else if (comboBoxOllamaModel.Items.Count > 0)
+                        {
+                            comboBoxOllamaModel.SelectedIndex = 0;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Don't show an error message, just use the default models
+                Console.WriteLine($"Failed to load Ollama models: {ex.Message}");
+            }
+        }
+
         private void SettingsForm_Load(object sender, EventArgs e)
         {
-            // Always force OpenAI to be selected
-            radioButtonOpenAI.Checked = true;
-            radioButtonOpenRouter.Checked = false;
+            // Set the radio buttons based on the provider
+            switch (Provider)
+            {
+                case LlmSettings.Provider.OpenAI:
+                    radioButtonOpenAI.Checked = true;
+                    break;
+                case LlmSettings.Provider.OpenRouter:
+                    radioButtonOpenRouter.Checked = true;
+                    break;
+                case LlmSettings.Provider.Ollama:
+                    radioButtonOllama.Checked = true;
+                    break;
+            }
 
             // Set the text boxes based on current settings
             textBoxOpenAIKey.Text = OpenAiApiKey;
             comboBoxOpenAIModel.SelectedItem = OpenAiModelId;
             textBoxOpenRouterKey.Text = OpenRouterApiKey;
             comboBoxOpenRouterModel.SelectedValue = OpenRouterModelId;
+            textBoxOllamaEndpoint.Text = OllamaEndpoint;
+            comboBoxOllamaModel.Text = OllamaModelId;
             textBoxGitLabToken.Text = GitLabPersonalAccessToken;
             textBoxGitLabApiUrl.Text = GitLabApiUrl;
             textBoxFilesystemDirectories.Text = string.Join(Environment.NewLine, FilesystemDirectories);
 
             // Update enabled controls based on selection
             UpdateControlStates();
+
+            // Try to fetch Ollama models if Ollama is selected
+            if (radioButtonOllama.Checked)
+            {
+                FetchOllamaModels();
+            }
 
             _initialLoad = false;
         }
@@ -151,6 +253,7 @@ namespace WinFormsApp_MCP
             // Enable/disable the appropriate controls based on the selected provider
             groupBoxOpenAI.Enabled = radioButtonOpenAI.Checked;
             groupBoxOpenRouter.Enabled = radioButtonOpenRouter.Checked;
+            groupBoxOllama.Enabled = radioButtonOllama.Checked;
         }
 
         private void radioButtonOpenAI_CheckedChanged(object sender, EventArgs e)
@@ -173,6 +276,15 @@ namespace WinFormsApp_MCP
             UpdateControlStates();
         }
 
+        private void radioButtonOllama_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateControlStates();
+            if (radioButtonOllama.Checked && !_initialLoad)
+            {
+                FetchOllamaModels();
+            }
+        }
+
         private void buttonSave_Click(object sender, EventArgs e)
         {
             // Validate the selected provider's settings
@@ -184,11 +296,35 @@ namespace WinFormsApp_MCP
                 return;
             }
 
+            if (radioButtonOllama.Checked && string.IsNullOrWhiteSpace(textBoxOllamaEndpoint.Text))
+            {
+                MessageBox.Show("Please enter an Ollama endpoint URL.", "Validation Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                textBoxOllamaEndpoint.Focus();
+                return;
+            }
+
+            if (radioButtonOllama.Checked && string.IsNullOrWhiteSpace(comboBoxOllamaModel.Text))
+            {
+                MessageBox.Show("Please enter an Ollama model name.", "Validation Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                comboBoxOllamaModel.Focus();
+                return;
+            }
+
             // Save the settings
-            Provider = LlmSettings.Provider.OpenAI;  // Always save as OpenAI
+            if (radioButtonOpenAI.Checked)
+                Provider = LlmSettings.Provider.OpenAI;
+            else if (radioButtonOpenRouter.Checked)
+                Provider = LlmSettings.Provider.OpenRouter;
+            else if (radioButtonOllama.Checked)
+                Provider = LlmSettings.Provider.Ollama;
+
             OpenAiApiKey = textBoxOpenAIKey.Text;
-            OpenAiModelId = comboBoxOpenAIModel.SelectedItem.ToString();
+            OpenAiModelId = comboBoxOpenAIModel.SelectedItem?.ToString() ?? "gpt-4o-mini";
             OpenRouterApiKey = textBoxOpenRouterKey.Text;
+            OllamaEndpoint = textBoxOllamaEndpoint.Text;
+            OllamaModelId = comboBoxOllamaModel.Text;
             GitLabPersonalAccessToken = textBoxGitLabToken.Text;
             GitLabApiUrl = textBoxGitLabApiUrl.Text;
 
@@ -222,6 +358,8 @@ namespace WinFormsApp_MCP
                 OpenAiModelId = OpenAiModelId,
                 OpenRouterApiKey = OpenRouterApiKey,
                 OpenRouterModelId = OpenRouterModelId,
+                OllamaEndpoint = OllamaEndpoint,
+                OllamaModelId = OllamaModelId,
                 GitLabPersonalAccessToken = GitLabPersonalAccessToken,
                 GitLabApiUrl = GitLabApiUrl,
                 FilesystemDirectories = FilesystemDirectories

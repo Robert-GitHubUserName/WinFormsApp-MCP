@@ -13,7 +13,8 @@ namespace WinFormsApp_MCP
         public enum Provider
         {
             OpenAI,
-            OpenRouter
+            OpenRouter,
+            Ollama
         }
 
         public Provider LlmProvider { get; set; } = Provider.OpenAI;
@@ -21,6 +22,8 @@ namespace WinFormsApp_MCP
         public string OpenAiModelId { get; set; } = "gpt-4o-mini";
         public string OpenRouterApiKey { get; set; } = string.Empty;
         public string OpenRouterModelId { get; set; } = "moonshotai/moonlight-16b-a3b-instruct:free";
+        public string OllamaEndpoint { get; set; } = "http://localhost:11434";
+        public string OllamaModelId { get; set; } = "llama3.2:3b";
         public string[] FilesystemDirectories { get; set; } = Array.Empty<string>();
         public string GitLabPersonalAccessToken { get; set; } = string.Empty;
         public string GitLabApiUrl { get; set; } = "https://gitlab.com/api/v4";
@@ -46,6 +49,8 @@ namespace WinFormsApp_MCP
             string? modelId = Environment.GetEnvironmentVariable("OpenAI__ChatModelId") ?? "gpt-4o-mini";
             string? gitlabToken = Environment.GetEnvironmentVariable("GITLAB_PERSONAL_ACCESS_TOKEN");
             string? gitlabApiUrl = Environment.GetEnvironmentVariable("GITLAB_API_URL");
+            string? ollamaEndpoint = Environment.GetEnvironmentVariable("OLLAMA_ENDPOINT");
+            string? ollamaModelId = Environment.GetEnvironmentVariable("OLLAMA_MODEL_ID");
 
             return new LlmSettings
             {
@@ -54,6 +59,8 @@ namespace WinFormsApp_MCP
                 OpenAiModelId = modelId,
                 OpenRouterApiKey = string.Empty,
                 OpenRouterModelId = "openai/gpt-4o-mini",
+                OllamaEndpoint = ollamaEndpoint ?? "http://localhost:11434", // "http://localhost:11434"
+                OllamaModelId = ollamaModelId ?? "llama3.2:3b",
                 FilesystemDirectories = new[] { Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) },
                 GitLabPersonalAccessToken = gitlabToken ?? string.Empty,
                 GitLabApiUrl = gitlabApiUrl ?? "https://gitlab.com/api/v4"
@@ -106,22 +113,37 @@ namespace WinFormsApp_MCP
                 settings.GitLabApiUrl = gitlabApiUrl;
             }
 
+            string? ollamaEndpoint = Environment.GetEnvironmentVariable("OLLAMA_ENDPOINT");
+            if (!string.IsNullOrEmpty(ollamaEndpoint))
+            {
+                settings.OllamaEndpoint = ollamaEndpoint;
+            }
+
+            string? ollamaModelId = Environment.GetEnvironmentVariable("OLLAMA_MODEL_ID");
+            if (!string.IsNullOrEmpty(ollamaModelId))
+            {
+                settings.OllamaModelId = ollamaModelId;
+            }
+
             return settings;
         }
 
         /// <summary>
         /// Saves settings to the settings file
         /// </summary>
-        public void Save()
+        /// <returns>True if settings were saved successfully, false otherwise</returns>
+        public bool Save()
         {
             try
             {
                 string json = JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
                 File.WriteAllText(SettingsFilePath, json);
+                return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // Silently fail if we can't save settings
+                Console.WriteLine($"Error saving settings: {ex.Message}");
+                return false;
             }
         }
     }

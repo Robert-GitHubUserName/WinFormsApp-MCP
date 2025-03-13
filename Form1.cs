@@ -286,13 +286,21 @@ namespace WinFormsApp_MCP
                         OpenAiModelId = settingsForm.OpenAiModelId,
                         OpenRouterApiKey = settingsForm.OpenRouterApiKey,
                         OpenRouterModelId = settingsForm.OpenRouterModelId,
+                        OllamaEndpoint = settingsForm.OllamaEndpoint,
+                        OllamaModelId = settingsForm.OllamaModelId,
                         GitLabPersonalAccessToken = settingsForm.GitLabPersonalAccessToken,
                         GitLabApiUrl = settingsForm.GitLabApiUrl,
                         FilesystemDirectories = settingsForm.FilesystemDirectories
                     };
 
                     // Update the kernel service
-                    _kernelService.UpdateSettings(newSettings);
+                    bool saveSuccessful = _kernelService.UpdateSettings(newSettings);
+                    
+                    if (!saveSuccessful)
+                    {
+                        AppendToChatHistory("System", "Warning: Settings were applied but could not be saved to disk. " +
+                            "They will be reset when the application is restarted.", Color.Red);
+                    }
 
                     // Update MCP clients if needed
                     bool restartNeeded = false;
@@ -314,7 +322,22 @@ namespace WinFormsApp_MCP
                     _settings = newSettings;
 
                     // Inform the user about LLM changes
-                    AppendToChatHistory("System", $"LLM provider changed to {newSettings.LlmProvider}. Using model: {(newSettings.LlmProvider == LlmSettings.Provider.OpenAI ? newSettings.OpenAiModelId : newSettings.OpenRouterModelId)}", Color.DarkGreen);
+                    string modelInfo = "";
+                    
+                    switch (newSettings.LlmProvider)
+                    {
+                        case LlmSettings.Provider.OpenAI:
+                            modelInfo = $"Using model: {newSettings.OpenAiModelId}";
+                            break;
+                        case LlmSettings.Provider.OpenRouter:
+                            modelInfo = $"Using model: {newSettings.OpenRouterModelId}";
+                            break;
+                        case LlmSettings.Provider.Ollama:
+                            modelInfo = $"Using model: {newSettings.OllamaModelId} at {newSettings.OllamaEndpoint}";
+                            break;
+                    }
+
+                    AppendToChatHistory("System", $"LLM provider changed to {newSettings.LlmProvider}. {modelInfo}", Color.DarkGreen);
                     
                     if (restartNeeded)
                     {

@@ -18,6 +18,7 @@ partial class SettingsForm
     private void InitializeComponent()
     {
         this.groupBoxProvider = new GroupBox();
+        this.radioButtonOllama = new RadioButton();
         this.radioButtonOpenRouter = new RadioButton();
         this.radioButtonOpenAI = new RadioButton();
         this.groupBoxOpenAI = new GroupBox();
@@ -30,6 +31,11 @@ partial class SettingsForm
         this.comboBoxOpenRouterModel = new ComboBox();
         this.labelOpenRouterKey = new Label();
         this.textBoxOpenRouterKey = new TextBox();
+        this.groupBoxOllama = new GroupBox();
+        this.labelOllamaModel = new Label();
+        this.comboBoxOllamaModel = new ComboBox();
+        this.labelOllamaEndpoint = new Label();
+        this.textBoxOllamaEndpoint = new TextBox();
         this.buttonSave = new Button();
         this.buttonCancel = new Button();
         this.tabControl1 = new TabControl();
@@ -46,6 +52,7 @@ partial class SettingsForm
         this.groupBoxProvider.SuspendLayout();
         this.groupBoxOpenAI.SuspendLayout();
         this.groupBoxOpenRouter.SuspendLayout();
+        this.groupBoxOllama.SuspendLayout();
         this.tabControl1.SuspendLayout();
         this.tabPageLLM.SuspendLayout();
         this.tabPageMCP.SuspendLayout();
@@ -55,6 +62,7 @@ partial class SettingsForm
         // 
         // groupBoxProvider
         // 
+        this.groupBoxProvider.Controls.Add(this.radioButtonOllama);
         this.groupBoxProvider.Controls.Add(this.radioButtonOpenRouter);
         this.groupBoxProvider.Controls.Add(this.radioButtonOpenAI);
         this.groupBoxProvider.Location = new Point(17, 20);
@@ -65,6 +73,18 @@ partial class SettingsForm
         this.groupBoxProvider.TabIndex = 0;
         this.groupBoxProvider.TabStop = false;
         this.groupBoxProvider.Text = "LLM Provider";
+        // 
+        // radioButtonOllama
+        // 
+        this.radioButtonOllama.AutoSize = true;
+        this.radioButtonOllama.Location = new Point(507, 42);
+        this.radioButtonOllama.Margin = new Padding(4, 5, 4, 5);
+        this.radioButtonOllama.Name = "radioButtonOllama";
+        this.radioButtonOllama.Size = new Size(92, 29);
+        this.radioButtonOllama.TabIndex = 2;
+        this.radioButtonOllama.Text = "Ollama";
+        this.radioButtonOllama.UseVisualStyleBackColor = true;
+        this.radioButtonOllama.CheckedChanged += this.radioButtonOllama_CheckedChanged;
         // 
         // radioButtonOpenRouter
         // 
@@ -102,7 +122,7 @@ partial class SettingsForm
         this.groupBoxOpenAI.Margin = new Padding(4, 5, 4, 5);
         this.groupBoxOpenAI.Name = "groupBoxOpenAI";
         this.groupBoxOpenAI.Padding = new Padding(4, 5, 4, 5);
-        this.groupBoxOpenAI.Size = new Size(657, 183);
+        this.groupBoxOpenAI.Size = new Size(657, 130);
         this.groupBoxOpenAI.TabIndex = 1;
         this.groupBoxOpenAI.TabStop = false;
         this.groupBoxOpenAI.Text = "OpenAI Settings";
@@ -110,7 +130,7 @@ partial class SettingsForm
         // labelOpenAIModel
         // 
         this.labelOpenAIModel.AutoSize = true;
-        this.labelOpenAIModel.Location = new Point(29, 117);
+        this.labelOpenAIModel.Location = new Point(29, 87);
         this.labelOpenAIModel.Margin = new Padding(4, 0, 4, 0);
         this.labelOpenAIModel.Name = "labelOpenAIModel";
         this.labelOpenAIModel.Size = new Size(67, 25);
@@ -121,7 +141,7 @@ partial class SettingsForm
         // 
         this.comboBoxOpenAIModel.DropDownStyle = ComboBoxStyle.DropDownList;
         this.comboBoxOpenAIModel.FormattingEnabled = true;
-        this.comboBoxOpenAIModel.Location = new Point(171, 112);
+        this.comboBoxOpenAIModel.Location = new Point(171, 82);
         this.comboBoxOpenAIModel.Margin = new Padding(4, 5, 4, 5);
         this.comboBoxOpenAIModel.Name = "comboBoxOpenAIModel";
         this.comboBoxOpenAIModel.Size = new Size(455, 33);
@@ -130,7 +150,7 @@ partial class SettingsForm
         // labelOpenAIKey
         // 
         this.labelOpenAIKey.AutoSize = true;
-        this.labelOpenAIKey.Location = new Point(29, 50);
+        this.labelOpenAIKey.Location = new Point(29, 40);
         this.labelOpenAIKey.Margin = new Padding(4, 0, 4, 0);
         this.labelOpenAIKey.Name = "labelOpenAIKey";
         this.labelOpenAIKey.Size = new Size(76, 25);
@@ -139,7 +159,7 @@ partial class SettingsForm
         // 
         // textBoxOpenAIKey
         // 
-        this.textBoxOpenAIKey.Location = new Point(171, 45);
+        this.textBoxOpenAIKey.Location = new Point(171, 35);
         this.textBoxOpenAIKey.Margin = new Padding(4, 5, 4, 5);
         this.textBoxOpenAIKey.Name = "textBoxOpenAIKey";
         this.textBoxOpenAIKey.PasswordChar = '•';
@@ -152,11 +172,11 @@ partial class SettingsForm
         this.groupBoxOpenRouter.Controls.Add(this.comboBoxOpenRouterModel);
         this.groupBoxOpenRouter.Controls.Add(this.labelOpenRouterKey);
         this.groupBoxOpenRouter.Controls.Add(this.textBoxOpenRouterKey);
-        this.groupBoxOpenRouter.Location = new Point(17, 330);
+        this.groupBoxOpenRouter.Location = new Point(17, 270);
         this.groupBoxOpenRouter.Margin = new Padding(4, 5, 4, 5);
         this.groupBoxOpenRouter.Name = "groupBoxOpenRouter";
         this.groupBoxOpenRouter.Padding = new Padding(4, 5, 4, 5);
-        this.groupBoxOpenRouter.Size = new Size(657, 183);
+        this.groupBoxOpenRouter.Size = new Size(657, 130);
         this.groupBoxOpenRouter.TabIndex = 2;
         this.groupBoxOpenRouter.TabStop = false;
         this.groupBoxOpenRouter.Text = "OpenRouter Settings";
@@ -164,7 +184,7 @@ partial class SettingsForm
         // labelOpenRouterModel
         // 
         this.labelOpenRouterModel.AutoSize = true;
-        this.labelOpenRouterModel.Location = new Point(29, 117);
+        this.labelOpenRouterModel.Location = new Point(29, 87);
         this.labelOpenRouterModel.Margin = new Padding(4, 0, 4, 0);
         this.labelOpenRouterModel.Name = "labelOpenRouterModel";
         this.labelOpenRouterModel.Size = new Size(67, 25);
@@ -175,7 +195,7 @@ partial class SettingsForm
         // 
         this.comboBoxOpenRouterModel.DropDownStyle = ComboBoxStyle.DropDownList;
         this.comboBoxOpenRouterModel.FormattingEnabled = true;
-        this.comboBoxOpenRouterModel.Location = new Point(171, 112);
+        this.comboBoxOpenRouterModel.Location = new Point(171, 82);
         this.comboBoxOpenRouterModel.Margin = new Padding(4, 5, 4, 5);
         this.comboBoxOpenRouterModel.Name = "comboBoxOpenRouterModel";
         this.comboBoxOpenRouterModel.Size = new Size(455, 33);
@@ -184,7 +204,7 @@ partial class SettingsForm
         // labelOpenRouterKey
         // 
         this.labelOpenRouterKey.AutoSize = true;
-        this.labelOpenRouterKey.Location = new Point(29, 50);
+        this.labelOpenRouterKey.Location = new Point(29, 40);
         this.labelOpenRouterKey.Margin = new Padding(4, 0, 4, 0);
         this.labelOpenRouterKey.Name = "labelOpenRouterKey";
         this.labelOpenRouterKey.Size = new Size(76, 25);
@@ -193,12 +213,64 @@ partial class SettingsForm
         // 
         // textBoxOpenRouterKey
         // 
-        this.textBoxOpenRouterKey.Location = new Point(171, 45);
+        this.textBoxOpenRouterKey.Location = new Point(171, 35);
         this.textBoxOpenRouterKey.Margin = new Padding(4, 5, 4, 5);
         this.textBoxOpenRouterKey.Name = "textBoxOpenRouterKey";
         this.textBoxOpenRouterKey.PasswordChar = '•';
         this.textBoxOpenRouterKey.Size = new Size(455, 31);
         this.textBoxOpenRouterKey.TabIndex = 0;
+        // 
+        // groupBoxOllama
+        // 
+        this.groupBoxOllama.Controls.Add(this.labelOllamaModel);
+        this.groupBoxOllama.Controls.Add(this.comboBoxOllamaModel);
+        this.groupBoxOllama.Controls.Add(this.labelOllamaEndpoint);
+        this.groupBoxOllama.Controls.Add(this.textBoxOllamaEndpoint);
+        this.groupBoxOllama.Location = new Point(17, 410);
+        this.groupBoxOllama.Margin = new Padding(4, 5, 4, 5);
+        this.groupBoxOllama.Name = "groupBoxOllama";
+        this.groupBoxOllama.Padding = new Padding(4, 5, 4, 5);
+        this.groupBoxOllama.Size = new Size(657, 130);
+        this.groupBoxOllama.TabIndex = 3;
+        this.groupBoxOllama.TabStop = false;
+        this.groupBoxOllama.Text = "Ollama Settings";
+        // 
+        // labelOllamaModel
+        // 
+        this.labelOllamaModel.AutoSize = true;
+        this.labelOllamaModel.Location = new Point(29, 87);
+        this.labelOllamaModel.Margin = new Padding(4, 0, 4, 0);
+        this.labelOllamaModel.Name = "labelOllamaModel";
+        this.labelOllamaModel.Size = new Size(67, 25);
+        this.labelOllamaModel.TabIndex = 3;
+        this.labelOllamaModel.Text = "Model:";
+        // 
+        // comboBoxOllamaModel
+        // 
+        this.comboBoxOllamaModel.FormattingEnabled = true;
+        this.comboBoxOllamaModel.Location = new Point(171, 82);
+        this.comboBoxOllamaModel.Margin = new Padding(4, 5, 4, 5);
+        this.comboBoxOllamaModel.Name = "comboBoxOllamaModel";
+        this.comboBoxOllamaModel.Size = new Size(455, 33);
+        this.comboBoxOllamaModel.TabIndex = 2;
+        // 
+        // labelOllamaEndpoint
+        // 
+        this.labelOllamaEndpoint.AutoSize = true;
+        this.labelOllamaEndpoint.Location = new Point(29, 40);
+        this.labelOllamaEndpoint.Margin = new Padding(4, 0, 4, 0);
+        this.labelOllamaEndpoint.Name = "labelOllamaEndpoint";
+        this.labelOllamaEndpoint.Size = new Size(86, 25);
+        this.labelOllamaEndpoint.TabIndex = 1;
+        this.labelOllamaEndpoint.Text = "Endpoint:";
+        // 
+        // textBoxOllamaEndpoint
+        // 
+        this.textBoxOllamaEndpoint.Location = new Point(171, 35);
+        this.textBoxOllamaEndpoint.Margin = new Padding(4, 5, 4, 5);
+        this.textBoxOllamaEndpoint.Name = "textBoxOllamaEndpoint";
+        this.textBoxOllamaEndpoint.Size = new Size(455, 31);
+        this.textBoxOllamaEndpoint.TabIndex = 0;
         // 
         // buttonSave
         // 
@@ -238,6 +310,7 @@ partial class SettingsForm
         this.tabPageLLM.Controls.Add(this.groupBoxProvider);
         this.tabPageLLM.Controls.Add(this.groupBoxOpenAI);
         this.tabPageLLM.Controls.Add(this.groupBoxOpenRouter);
+        this.tabPageLLM.Controls.Add(this.groupBoxOllama);
         this.tabPageLLM.Location = new Point(4, 34);
         this.tabPageLLM.Margin = new Padding(4, 5, 4, 5);
         this.tabPageLLM.Name = "tabPageLLM";
@@ -366,6 +439,8 @@ partial class SettingsForm
         this.groupBoxOpenAI.PerformLayout();
         this.groupBoxOpenRouter.ResumeLayout(false);
         this.groupBoxOpenRouter.PerformLayout();
+        this.groupBoxOllama.ResumeLayout(false);
+        this.groupBoxOllama.PerformLayout();
         this.tabControl1.ResumeLayout(false);
         this.tabPageLLM.ResumeLayout(false);
         this.tabPageMCP.ResumeLayout(false);
@@ -381,6 +456,7 @@ partial class SettingsForm
     private System.Windows.Forms.GroupBox groupBoxProvider;
     private System.Windows.Forms.RadioButton radioButtonOpenRouter;
     private System.Windows.Forms.RadioButton radioButtonOpenAI;
+    private System.Windows.Forms.RadioButton radioButtonOllama;
     private System.Windows.Forms.GroupBox groupBoxOpenAI;
     private System.Windows.Forms.Label labelOpenAIModel;
     private System.Windows.Forms.ComboBox comboBoxOpenAIModel;
@@ -391,6 +467,11 @@ partial class SettingsForm
     private System.Windows.Forms.ComboBox comboBoxOpenRouterModel;
     private System.Windows.Forms.Label labelOpenRouterKey;
     private System.Windows.Forms.TextBox textBoxOpenRouterKey;
+    private System.Windows.Forms.GroupBox groupBoxOllama;
+    private System.Windows.Forms.Label labelOllamaModel;
+    private System.Windows.Forms.ComboBox comboBoxOllamaModel;
+    private System.Windows.Forms.Label labelOllamaEndpoint;
+    private System.Windows.Forms.TextBox textBoxOllamaEndpoint;
     private System.Windows.Forms.Button buttonSave;
     private System.Windows.Forms.Button buttonCancel;
     private System.Windows.Forms.TabControl tabControl1;
